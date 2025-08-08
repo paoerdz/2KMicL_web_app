@@ -1,0 +1,131 @@
+/* ===== 2KMicL PWA - Shared Styles ===== */
+
+/* General page setup */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('../images/page_bg.png') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+}
+
+/* Responsive images */
+header img, .banner img, .intro-text img {
+    width: 100%;
+    height: auto;
+}
+
+/* Headers / Titles */
+.agent-code {
+    font-family: Impact, sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    margin: 10px;
+}
+.title-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+.title-section h2 {
+    font-style: italic;
+    font-weight: bold;
+    margin: 0;
+}
+.title-section img {
+    height: 24px;
+}
+
+/* Forms */
+.form-container, form {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+    gap: 8px;
+}
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+}
+.signup-btn {
+    background-color: green;
+    color: white;
+    cursor: pointer;
+}
+
+/* Text Links */
+.signup-text, .center-text {
+    font-style: italic;
+    text-align: center;
+    margin-top: 10px;
+}
+.signup-text a, .center-text a {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Social links */
+.social {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+.social img {
+    height: 28px;
+    margin-right: 8px;
+}
+
+/* Bottom section */
+.bottom-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 10px;
+    flex-wrap: wrap;
+}
+.bottom-section button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.bottom-section img {
+    max-height: 70px;
+}
+
+/* Upload section */
+.upload-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+@media (min-width: 768px) {
+    .upload-section {
+        flex-direction: row;
+    }
+}
+
+/* Footer */
+footer {
+    font-style: italic;
+    padding: 10px;
+}
+footer.bold {
+    font-weight: bold;
+}
+
+/* Desktop tweaks */
+@media (min-width: 768px) {
+    .form-container, form {
+        max-width: 600px;
+        margin: auto;
+    }
+    .agent-code {
+        font-size: 1.2em;
+    }
+}
+
