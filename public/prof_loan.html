@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2KMICL Loan Application</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/prof_loan.js" defer></script>
+</head>
+<body>
+
+    <!-- Logo -->
+    <div id="logo_container"></div>
+
+    <!-- Date & Time -->
+    <div id="current_datetime" style="font-weight: bold; font-size: 16px; margin-bottom: 15px;"></div>
+
+    <!-- ID Previews -->
+    <div style="margin-bottom: 20px;">
+        <label><strong>Uploaded ID (Front):</strong></label><br>
+        <img id="id_front_preview" src="" alt="Front ID" style="max-width:200px; border:1px solid #ccc; margin:5px;">
+        <br>
+        <label><strong>Uploaded ID (Back):</strong></label><br>
+        <img id="id_back_preview" src="" alt="Back ID" style="max-width:200px; border:1px solid #ccc; margin:5px;">
+    </div>
+
+    <!-- Your existing form starts here -->
+    <form id="loan_form">
+        <!-- Profile Fields -->
+        <input type="text" id="first_name" name="First_Name" readonly>
+        <input type="text" id="middle_name" name="Middle_Name" readonly>
+        <input type="text" id="last_name" name="Last_Name" readonly>
+        <input type="date" id="birthdate" name="Birthdate" readonly>
+        <input type="text" id="address" name="Address" readonly>
+        <input type="text" id="employee_number" name="Employee_Number" readonly>
+        <input type="text" id="station" name="Station" readonly>
+        <input type="text" id="contact_number" name="Contact_Number" readonly>
+        <input type="text" id="valid_id" name="Valid_ID" readonly>
+        <input type="text" id="ewallet_vendor" name="eWallet_Vendor" readonly>
+        <input type="text" id="ewallet_account" name="eWallet_Account" readonly>
+
+        <!-- Loan Info -->
+        <input type="text" id="loan_code" name="Loan_Code" readonly>
+        <input type="text" id="status" name="Status" readonly>
+        <input type="text" id="loan_elig" name="Loan_Elig" readonly>
+
+        <!-- Loan Selection -->
+        <select id="loan_amount" name="Loan_Amount"></select>
+        <select id="terms" name="Terms">
+            <option value="0">Select Terms</option>
+            <option value="12, 5%">12 Months, 5%</option>
+            <option value="6, 3%">6 Months, 3%</option>
+            <option value="3, 2%">3 Months, 2%</option>
+        </select>
+        <select id="proceeds_mode" name="Proceeds_Mode">
+            <option value="Option2">Net proceeds deducted (Option 2)</option>
+            <option value="Option3">Add-on interest (Option 3)</option>
+        </select>
+
+        <!-- Computed Fields -->
+        <input type="text" id="net_proceeds" name="Net_Proceeds" readonly>
+        <input type="text" id="amount_to_repay" name="Amount_To_Repay" readonly>
+        <textarea id="loan_computation" name="Loan_Computation" readonly></textarea>
+
+        <!-- Apply Button -->
+        <button type="button" id="apply_button">Apply Loan</button>
+    </form>
+
+</body>
+</html>
