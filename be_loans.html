@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Loans Management</title>
+    <link rel="stylesheet" href="main/css/style.css">
+</head>
+<body>
+    <h1 style="color:white;text-align:center;">Loans Backend</h1>
+
+    <table id="loansTable" border="1" cellpadding="5" cellspacing="0" style="width:100%;background:white;">
+        <thead>
+            <tr>
+                <th>Loan ID</th>
+                <th>Member ID</th>
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Last Name</th>
+                <th>Loan Code Applied</th>
+                <th>Loan Code</th>
+                <th>Loan Amount</th>
+                <th>Terms</th>
+                <th>Interest</th>
+                <th>Proceeds Mode</th>
+                <th>Proceeds</th>
+                <th>Repayment Date</th>
+                <th>Repayment Amount</th>
+                <th>Status</th>
+                <th>Date Paid</th>
+                <th>Loan Elig</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+    function loadLoans() {
+        fetch("php/be_loans.php?action=fetch")
+            .then(res => res.json())
+            .then(data => {
+                const tbody = document.querySelector("#loansTable tbody");
+                tbody.innerHTML = ""; // Clear table before adding rows
+
+                data.forEach(loan => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${loan.Loan_ID}</td>
+                        <td>${loan.Member_ID}</td>
+                        <td>${loan.First_Name}</td>
+                        <td>${loan.Middle_Name || ""}</td>
+                        <td>${loan.Last_Name}</td>
+                        <td>${loan.Loan_Code_Applied}</td>
+                        <td>${loan.Loan_Code}</td>
+                        <td>${loan.Loan_Amount}</td>
+                        <td>${loan.Terms}</td>
+                        <td>${loan.Interest}</td>
+                        <td>${loan.Proceeds_Mode}</td>
+                        <td>${loan.Proceeds}</td>
+                        <td>${loan.Repayment_Date}</td>
+                        <td>${loan.Repayment_Amount}</td>
+                        <td>
+                            <select data-field="Status">
+                                ${['Running', 'Due now', 'Overdue', 'Requested payment extension', 'Paid']
+                                    .map(opt => `<option value="${opt}" ${loan.Status === opt ? "selected" : ""}>${opt}</option>`).join("")}
+                            </select>
+                        </td>
+                        <td>
+                            <input type="date" data-field="Date_Paid" value="${loan.Date_Paid || ""}">
+                        </td>
+                        <td>
+                            <select data-field="Loan_Elig">
+                                ${['Yes', 'No']
+                                    .map(opt => `<option value="${opt}" ${loan.Loan_Elig === opt ? "selected" : ""}>${opt}</option>`).join("")}
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" data-field="Remarks" value="${loan.Remarks || ""}">
+                        </td>
+                    `;
+
+                    // Event listeners for updating data
+                    tr.querySelectorAll("select, input").forEach(el => {
+                        el.addEventListener("change", function() {
+                            fetch("php/be_loans.php?action=update", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    Loan_ID: loan.Loan_ID,
+                                    field: el.dataset.field,
+                                    value: el.value
+                                })
+                            });
+                        });
+                    });
+
+                    tbody.appendChild(tr);
+                });
+            })
+            .catch(err => console.error("Error loading loans:", err));
+    }
+
+    // Load on page open
+    loadLoans();
+    // Refresh every 5 seconds
+    setInterval(loadLoans, 5000);
+    </script>
+</body>
+</html>

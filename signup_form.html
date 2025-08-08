@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2KMicL - Sign Up</title>
+    <link rel="stylesheet" href="main/css/styles.css">
+</head>
+<body style="background-image: url('images/page_bg.png');">
+
+    <!-- Header -->
+    <header>
+        <img src="images/header.png" alt="Header" class="full-width-img">
+    </header>
+
+    <!-- Animated Banner -->
+    <section>
+        <img src="images/animated_banner.gif" alt="Animated Banner" class="full-width-img">
+    </section>
+
+    <!-- Sign Up Title + Info Icon -->
+    <section class="signup-header">
+        <h2 class="white-text bold italic left">Sign up here</h2>
+        <a href="privacy_policy.html"><img src="images/info_icon.png" alt="Info" class="info-icon"></a>
+    </section>
+
+    <!-- Sign Up Form -->
+    <form id="signupForm" enctype="multipart/form-data">
+
+        <div class="form-row">
+            <input type="text" name="First_Name" placeholder="First Name" required>
+            <input type="text" name="Middle_Name" placeholder="Middle Name">
+            <input type="text" name="Last_Name" placeholder="Last Name" required>
+        </div>
+
+        <div class="form-row">
+            <input type="date" name="Birthdate" required>
+            <input type="text" name="Address" placeholder="Address" required>
+        </div>
+
+        <div class="form-row">
+            <input type="text" name="Employee_Number" placeholder="Employee Number (DepEd)" required>
+            <input type="text" name="Station" placeholder="Station (School)" required>
+        </div>
+
+        <div class="form-row">
+            <input type="tel" name="Contact_Number" placeholder="Contact Number (09XXXXXXXXX)" pattern="09[0-9]{9}" required>
+            <select name="Valid_ID" required>
+                <option value="">Select Valid ID</option>
+                <option value="PRC">PRC</option>
+                <option value="DepEd ID">DepEd ID</option>
+                <option value="UMID">UMID</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label>Upload front and back photos of the selected ID:</label>
+            <input type="file" name="ID_Front" accept="image/*" required>
+            <input type="file" name="ID_Back" accept="image/*" required>
+        </div>
+
+        <div class="form-row">
+            <select name="eWallet_Vendor" required>
+                <option value="">Select eWallet Vendor</option>
+                <option value="Gcash">Gcash</option>
+                <option value="Maya">Maya</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <input type="tel" name="eWallet_Account" placeholder="eWallet Account/Number (09XXXXXXXXX)" pattern="09[0-9]{9}" required>
+        </div>
+
+        <button type="submit" class="green-btn">Sign Up</button>
+    </form>
+
+    <!-- Already have account -->
+    <p class="center white-text italic">Already have an account?</p>
+    <p class="center white-text italic bold"><a href="index.html">Sign in</a></p>
+
+    <!-- Facebook Follow -->
+    <div class="footer-social">
+        <a href="https://www.facebook.com/share/1GGZZVTuNg/"><img src="images/fb_icon.png" alt="Facebook"></a>
+        <p class="white-text italic">Follow our Facebook page!</p>
+    </div>
+
+    <!-- Cancel Button + Teacher/Logo -->
+    <div class="bottom-row">
+        <a href="index.html" class="cancel-btn">Cancel</a>
+        <div class="teacher-logo">
+            <img src="images/teacher_model.png" class="teacher-img">
+            <img src="images/logo.png" class="logo-img">
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p class="white-text italic bold">© 2KMicL 2025</p>
+    </footer>
+
+    <script>
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        let formData = new FormData(this);
+
+        fetch('main/php/signup_process.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === 'success') {
+                if (confirm("By clicking Sign up button, you agree to the storage of your basic and ID photos to the system's database.")) {
+                    alert(`Your Member ID is: ${data.member_id}, and your PIN is: ${data.pin}. Keep safe and memorize these for your portal access.`);
+                }
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(err => alert("Something went wrong. Please try again."));
+    });
+    </script>
+
+</body>
+</html>
